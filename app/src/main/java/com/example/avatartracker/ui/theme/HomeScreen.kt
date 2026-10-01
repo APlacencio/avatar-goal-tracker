@@ -45,7 +45,8 @@ import androidx.compose.animation.core.tween
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.draw.scale
 
-
+const val MAX_REST_DAYS = 2
+const val REST_DAYS_KEY = "rest_days_remaining"
 // Put this at top-level, NOT inside HomeScreen or any other function
 enum class BottomTab {
     HOME,
@@ -145,6 +146,12 @@ fun HomeScreen() {
     var xp by remember {
         mutableStateOf(
             prefs.getInt("xp", 0)
+        )
+    }
+
+    var restDaysRemaining by remember {
+        mutableStateOf(
+            prefs.getInt(REST_DAYS_KEY, MAX_REST_DAYS)
         )
     }
 
@@ -330,7 +337,7 @@ fun HomeScreen() {
                 SoundManager.playRestDay()
             }
         ) {
-            Text("Use Rest Day (2 left)")
+            Text("Use Rest Day ($restDaysRemaining left)")
         }
     }
 
